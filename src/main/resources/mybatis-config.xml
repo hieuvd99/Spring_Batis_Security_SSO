@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<package name="com.greenfoarfece.smb" />
+	</typeAliases>
+	<!-- Disable this line after adding mybatis.mapper-locations=mappers/*.xml
+	     on application.properties -->
+	<!--
+	<mappers>
+		<mapper resource="mappers/UserMapper.xml" />
+		<mapper resource="mappers/PersonMapper.xml"/>
+	</mappers>
+	-->
+</configuration>

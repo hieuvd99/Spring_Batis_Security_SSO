@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+	<resultMap id="UserResultMap" type="com.greenfoarfece.smb.domain.User">
+		<result property="userId" column="user_id"/>
+		<result property="userName" column="user_name"/>
+		<result property="password" column="password"/>
+		<result property="email" column="email"/>
+	</resultMap>
+
+	<select id="findAllUser" resultType="User" resultMap="UserResultMap">
+		select * from tb_user;
+	</select>
+
+ 	<select id="whereUser" parameterType="long" resultType="User" resultMap="UserResultMap">
+        SELECT * FROM tb_user WHERE user_id = #{id};
+    </select>
+	<select id="whereByNameUser" parameterType="String" resultType="User" resultMap="UserResultMap">
+		SELECT * FROM tb_user WHERE user_name = #{userName};
+	</select>
+	<update id="updateAuthen" parameterType="User">
+		UPDATE tb_user SET authType = #{authType} WHERE user_name = #{userName};
+	</update>
+	 <insert id="insertUser" parameterType="User" >
+        INSERT INTO tb_user (user_id, user_name, password, email) VALUES (#{userId}, #{userName}, #{password}, #{email});
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+    	UPDATE tb_user SET  user_name = #{userName}, password = #{password}, email = #{email} WHERE user_id = #{userId};
+	</update>
+
+	 <delete id="deleteUser" parameterType="long">
+        DELETE from tb_user WHERE user_id = #{userId};
+    </delete>
+
+	<insert id="insertMultiUser" parameterType="java.util.List">
+		insert into tb_user (userid,username,password,email) values
+		<foreach collection="list" item="item" index='index' separator=",">
+			(#{item.userId},#{item.userName},#{item.password},#{item.email})
+		</foreach>;
+	</insert>
+	
+	<update id="updateMutipleUser" parameterType="java.util.List">
+    	UPDATE tb_user SET 
+    	<foreach collection="list" item="item" index='index' separator=",">
+			( userName = #{item.userName},#{item.password}, #{item.email})
+		</foreach>;
+    	
+    	 WHERE userId = #{item.userId};
+	</update>
+	
+
+</mapper>
